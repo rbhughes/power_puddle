@@ -1,15 +1,15 @@
+import time
+import requests
+
+import duckdb
+import pandas as pd
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException, NoSuchElementException
-import time
-
-URL = "https://www.datacenters.com/locations/united-states/illinois"
-BTN = "button.Control__control__ijHLR.Pagination__pageItem__NsQSw.Pagination__symbol__KHv6r"
-
+from selenium.common.exceptions import TimeoutException
 
 # 2025-09-07 154 total
 # 1.1 North Central US-Illinois
@@ -18,7 +18,11 @@ BTN = "button.Control__control__ijHLR.Pagination__pageItem__NsQSw.Pagination__sy
 # 4.1 ORD2 Elk Grove Data Center
 
 
-def extract_data_centers(page_html):
+URL = "https://www.datacenters.com/locations/united-states/illinois"
+BTN = "button.Control__control__ijHLR.Pagination__pageItem__NsQSw.Pagination__symbol__KHv6r"
+
+
+def _extract_data_centers(page_html) -> list[dict[str, str]]:
     """Extract data centers from current page HTML"""
     soup = BeautifulSoup(page_html, "html.parser")
     records = []
@@ -39,7 +43,7 @@ def extract_data_centers(page_html):
     return records
 
 
-def click_accept_all_cookies(driver):
+def _click_accept_all_cookies(driver: webdriver.Chrome) -> None:
     """Handle cookie consent if present"""
     try:
         wait = WebDriverWait(driver, 10)
@@ -53,9 +57,8 @@ def click_accept_all_cookies(driver):
         print("No cookie banner found")
 
 
-def scrape_all_pages():
+def scrape_dc_pages() -> list[dict[str, str]]:
     chrome_options = Options()
-    # Comment out for debugging
     # chrome_options.add_argument("--headless")
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--window-size=1920,1080")
@@ -64,7 +67,7 @@ def scrape_all_pages():
 
     try:
         driver.get(URL)
-        click_accept_all_cookies(driver)
+        _click_accept_all_cookies(driver)
 
         # Wait for initial page load
         WebDriverWait(driver, 20).until(
@@ -74,28 +77,26 @@ def scrape_all_pages():
 
         all_records = []
         page_num = 1
-        max_pages = 4  # Safety limit based on your knowledge of 4 pages
+        max_pages = 10  # sanity check--there are only about 4 pages
 
         while page_num <= max_pages:
             print(f"\n=== Processing page {page_num} ===")
 
             # Extract data from current page
-            records = extract_data_centers(driver.page_source)
+            records = _extract_data_centers(driver.page_source)
             all_records.extend(records)
             print(
                 f"Page {page_num}: Found {len(records)} records (Total: {len(all_records)})"
             )
 
-            # Print first record for verification
             if records:
-                print(f"  First record: {records[0]['name']}")
+                print(f"  First record on page: {records[0]['name']}")
 
-            # Check if we've reached the maximum expected pages
             if page_num >= max_pages:
-                print("Reached maximum expected pages (4)")
+                print(f"Reached maximum expected pages ({max_pages})")
                 break
 
-            # Find the next button
+            # The next button
             try:
                 next_btns = driver.find_elements(By.CSS_SELECTOR, BTN)
                 print(f"Found {len(next_btns)} pagination buttons")
@@ -119,15 +120,15 @@ def scrape_all_pages():
                 # Get current page source hash for comparison
                 current_page_hash = hash(driver.page_source[:1000])
 
-                # Click using multiple methods for reliability
+                # Desperation clicks using multiple methods...
                 try:
                     # Method 1: Regular click
                     next_btn.click()
-                except:
+                except:  # noqa: E722
                     try:
                         # Method 2: JavaScript click
                         driver.execute_script("arguments[0].click();", next_btn)
-                    except:
+                    except:  # noqa: E722
                         # Method 3: Action chains click
                         from selenium.webdriver.common.action_chains import ActionChains
 
@@ -135,7 +136,6 @@ def scrape_all_pages():
 
                 print("Button clicked, waiting for page change...")
 
-                # Wait for page to change with simple approach
                 page_changed = False
                 for i in range(10):  # Wait up to 10 seconds
                     time.sleep(1)
@@ -149,14 +149,14 @@ def scrape_all_pages():
                 if not page_changed:
                     print("⚠ Page didn't change - trying to continue anyway")
 
-                time.sleep(2)  # Extra stability wait
+                time.sleep(2)
                 page_num += 1
 
             except Exception as e:
                 print(f"Error with pagination: {e}")
                 break
 
-        print(f"\n=== Scraping Complete ===")
+        print("\n=== Scraping Complete ===")
         print(f"Total pages processed: {page_num}")
         print(f"Total records collected: {len(all_records)}")
 
@@ -164,13 +164,6 @@ def scrape_all_pages():
         expected_total = 154
         print(f"Expected ~{expected_total} records, got {len(all_records)}")
 
-        # Save to file
-        with open("illinois_data_centers.csv", "w") as f:
-            f.write("Name,Address\n")
-            for record in all_records:
-                f.write(f'"{record["name"]}","{record["address"]}"\n')
-
-        print("Results saved to illinois_data_centers.csv")
         return all_records
 
     except Exception as e:
@@ -184,5 +177,80 @@ def scrape_all_pages():
         driver.quit()
 
 
-if __name__ == "__main__":
-    scrape_all_pages()
+##############################################################################
+
+
+def initialize_data_center_table(db_path: str, records: list[dict[str, str]]):
+    data_center_df = pd.DataFrame(records)
+
+    con = duckdb.connect(db_path)
+
+    con.register("data_center_df", data_center_df)
+
+    con.execute("""
+    CREATE OR REPLACE TABLE data_centers AS
+    SELECT * FROM data_center_df
+    """)
+
+    con.close()
+
+
+##############################################################################
+
+
+def _geocode_address(address: str) -> tuple[float | None, float | None]:
+    """Geocode with Nominatim (free, no API key)"""
+
+    url = "https://nominatim.openstreetmap.org/search"
+    params = {
+        "q": address,
+        "format": "json",
+        "limit": 1,
+        "countrycodes": "us",
+    }
+    headers = {"User-Agent": "DataCenterGeocoder/1.0 (bryan@purr.io)"}
+
+    try:
+        response = requests.get(url, params=params, headers=headers)
+        if response.status_code == 200:
+            data = response.json()
+            if data:
+                return float(data[0]["lat"]), float(data[0]["lon"])
+    except Exception as e:
+        print(f"Error geocoding {address}: {e}")
+
+    return None, None
+
+
+def _add_column_if_not_exists(db_path: str, table: str, column: str, dtype: str):
+    """because duckdb has no IF NOT EXISTS for ADD COLUMN"""
+    con = duckdb.connect(db_path)
+    cols = con.execute(f"PRAGMA table_info({table});").df()["name"].tolist()
+    if column not in cols:
+        con.execute(f"ALTER TABLE {table} ADD COLUMN {column} {dtype};")
+        print(f"added column: {column} to {db_path}|{table}")
+
+
+def update_dc_table_with_geocode(db_path: str):
+    con = duckdb.connect(db_path)
+
+    _add_column_if_not_exists(db_path, "data_centers", "latitude", "DOUBLE")
+    _add_column_if_not_exists(db_path, "data_centers", "longitude", "DOUBLE")
+
+    df = con.execute("SELECT name, address FROM data_centers").df()
+
+    countdown = len(df)
+
+    for idx, row in df.iterrows():
+        lat, lon = _geocode_address(row["address"])
+        print(f"[{countdown} remaining]: {row['address']} => {lat}, {lon}")
+        con.execute(
+            """UPDATE data_centers 
+        SET latitude=?, longitude=?
+        WHERE name=? AND address=?
+        """,
+            [lat, lon, row["name"], row["address"]],
+        )
+        countdown -= 1
+
+    con.close()
