@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: stg_monthly_gen
+    description: "Staged monthly generation data with plant information"
+    columns:
+      - name: plant_id_eia
+        description: "EIA plant identifier"
+        tests:
+          - not_null
+      - name: report_date
+        description: "Monthly report date"
+        tests:
+          - not_null
+      - name: net_generation_mwh
+        description: "Net generation in MWh"
+        tests:
+          - not_null
+
+  - name: stg_monthly_gen_nuc
+    description: "Staged nuclear generation data with plant information"
+    columns:
+      - name: plant_id_eia
+        description: "EIA plant identifier"
+        tests:
+          - not_null
+      - name: nuclear_unit_id
+        description: "Nuclear unit identifier"
+        tests:
+          - not_null

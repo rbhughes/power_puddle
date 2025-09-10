@@ -10,7 +10,7 @@ def initialize_pudl_tables(db_path: str):
         dtype_backend="pyarrow",
     )
 
-    monthly_nuclear_df = pd.read_parquet(
+    monthly_gen_nuc_df = pd.read_parquet(
         "s3://pudl.catalyst.coop/nightly/core_eia923__monthly_generation_fuel_nuclear.parquet",
         dtype_backend="pyarrow",
     )
@@ -25,14 +25,12 @@ def initialize_pudl_tables(db_path: str):
     con.register("plants_df", plants_df)
     con.execute("CREATE OR REPLACE TABLE plants AS SELECT * FROM plants_df")
 
-    con.register("monthly_nuclear_df", monthly_nuclear_df)
+    con.register("monthly_gen_nuc_df", monthly_gen_nuc_df)
     con.execute(
-        "CREATE OR REPLACE TABLE monthly_nuclear AS SELECT * FROM monthly_nuclear_df"
+        "CREATE OR REPLACE TABLE monthly_gen_nuc AS SELECT * FROM monthly_gen_nuc_df"
     )
 
     con.register("monthly_gen_df", monthly_gen_df)
-    con.execute(
-        "CREATE OR REPLACE TABLE monthly_generation AS SELECT * FROM monthly_gen_df"
-    )
+    con.execute("CREATE OR REPLACE TABLE monthly_gen AS SELECT * FROM monthly_gen_df")
 
     con.close()

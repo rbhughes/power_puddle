@@ -1,0 +1,50 @@
+version: 2
+
+sources:
+  - name: power_puddle
+    description: "PUDL and data centers"
+    schema: main
+    tables:
+      - name: core_eia_entity_plants
+        identifier: plants
+        description: "EIA static info about power plants"
+        columns:
+          - name: plant_id_eia
+            description: "Unique plant identifier"
+            tests:
+              - unique
+              - not_null
+          - name: plant_name_eia
+            description: "Plant name"
+          - name: state
+            description: "State abbreviation"
+          - name: county
+            description: "County name"
+          - name: latitude
+            description: "Plant latitude"
+          - name: longitude
+            description: "Plant longitude"
+
+      - name: core_eia923_monthly_generation_fuel
+        identifier: monthly_gen
+        description: "EIA 923 monthly generation and fuel data"
+        columns:
+          - name: plant_id_eia
+            description: "Plant identifier"
+          - name: report_date
+            description: "Monthly report date"
+          - name: net_generation_mwh
+            description: "Net generation in MWh"
+
+      - name: core_eia923_monthly_generation_fuel_nuclear
+        identifier: monthly_gen_nuc
+        description: "EIA 923 nuclear generation data"
+        columns:
+          - name: plant_id_eia
+            description: "Plant identifier"
+          - name: nuclear_unit_id
+            description: "Nuclear unit identifier"
+
+      - name: data_centers
+        identifier: data_centers
+        description: "Geocoded Illinois data centers"

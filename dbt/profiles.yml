@@ -1,0 +1,11 @@
+puddle_profile:
+  outputs:
+    dev:
+      type: duckdb
+      path: "../data/puddle.duckdb"
+      threads: 4
+    prod:
+      type: duckdb
+      path: "../data/pudl_prod.duckdb"
+      threads: 4
+  target: dev
