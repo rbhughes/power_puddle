@@ -46,6 +46,7 @@ cleaned as (
         date_trunc('month', s.report_date) as report_month_start,
         
         -- Fuel category mapping using fuel_type_code_pudl
+        -- (there are no geothermal as of 2025-09-10)
         case 
             when s.fuel_type_code_pudl = 'coal' then 'Coal'
             when s.fuel_type_code_pudl = 'gas' then 'Natural Gas'
@@ -54,7 +55,7 @@ cleaned as (
             when s.fuel_type_code_pudl = 'hydro' then 'Hydro'
             when s.fuel_type_code_pudl = 'wind' then 'Wind'
             when s.fuel_type_code_pudl = 'solar' then 'Solar'
-            --when s.fuel_type_code_pudl = 'geothermal' then 'Geothermal'
+            when s.fuel_type_code_pudl = 'geothermal' then 'Geothermal'
             when s.fuel_type_code_pudl = 'waste' then 'Biomass'
             when s.fuel_type_code_pudl = 'other' then 'Other'
             else 'Unknown'

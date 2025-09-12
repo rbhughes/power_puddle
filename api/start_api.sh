@@ -1,4 +1,6 @@
 #!/bin/bash
 echo "Starting Illinois Energy API..."
-cd "$(dirname "$0")"
-python energy_api.py
+# cd "$(dirname "$0")"
+cd "$(dirname "$0")/.."
+# python energy_api.py
+python -m api.energy_api

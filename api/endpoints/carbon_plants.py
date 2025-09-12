@@ -1,11 +1,14 @@
 from flask import Blueprint, jsonify
-from ..energy_api import get_db_connection
 
 carbon_plants_bp = Blueprint("carbon_plants", __name__)
 
 
 @carbon_plants_bp.route("/carbon-plants")
 def get_carbon_plants():
+    from ..energy_api import (
+        get_db_connection,
+    )  # Import moved here to avoid circular import
+
     conn = get_db_connection()
     try:
         df = conn.execute("""

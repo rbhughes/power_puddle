@@ -4,7 +4,8 @@ import duckdb
 import os
 
 # Import endpoint blueprints
-from endpoints.carbon_plants import carbon_plants_bp
+from .endpoints.carbon_plants import carbon_plants_bp
+from .endpoints.mart_monthly import mart_monthly_bp
 # from endpoints.fuel_mix import fuel_mix_bp
 # from endpoints.datacenter_proximity import datacenter_bp
 
@@ -19,6 +20,8 @@ def get_db_connection():
 
 
 app.register_blueprint(carbon_plants_bp, url_prefix="/api")
+app.register_blueprint(mart_monthly_bp, url_prefix="/api")
+
 # app.register_blueprint(fuel_mix_bp, url_prefix="/api")
 # app.register_blueprint(datacenter_bp, url_prefix="/api")
 
@@ -29,4 +32,4 @@ def health_check():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5500, debug=True)
