@@ -2,11 +2,11 @@
     materialized='table'
 ) }}
 
-# CHP Context Consideration
-# The model correctly uses fuel_consumed_for_electricity_mmbtu 
-# rather than total fuel consumed for heat rate calculations, 
-# which properly handles CHP plants by only counting fuel used for 
-# electricity generation.
+-- CHP Context Consideration
+-- The model correctly uses fuel_consumed_for_electricity_mmbtu 
+-- rather than total fuel consumed for heat rate calculations, 
+-- which properly handles CHP plants by only counting fuel used for 
+-- electricity generation.
 
 with monthly_summary as (
     select

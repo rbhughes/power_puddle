@@ -1,0 +1,58 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "Monthly total net mWh for various fuel types over the last 20 years for whole US",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 2,
+  "links": [],
+  "panels": [
+    {
+      "gridPos": {
+        "h": 14,
+        "w": 20,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "libraryPanel": {
+        "name": "PUDL US Monthly Power Generation",
+        "uid": "bexwbk0ht4dtse"
+      },
+      "title": "PUDL US Monthly Power Generation",
+      "type": "library-panel-ref"
+    }
+  ],
+  "preload": false,
+  "schemaVersion": 41,
+  "tags": [
+    "PUDL"
+  ],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "2000-01-01T18:00:00.000Z",
+    "to": "2025-05-01T00:00:00.000Z"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "us-monthly_generation_trends",
+  "uid": "041f1c70-30fe-4cd1-a981-f956737185f2",
+  "version": 7
+}

@@ -1,10 +1,14 @@
 {{ config(materialized='table') }}
 
+--Start: 2005-01-01 (sequence 0)
+--End: 2030-01-01 (sequence 299)
+--Total months: 300
+
 with date_spine as (
     -- Generate date series manually for DuckDB
     select 
-        date_add('2020-01-01'::date, interval (seq) month) as date_month
-    from generate_series(0, 120) as t(seq)  -- 10 years of months
+        date_add('2005-01-01'::date, interval (seq) month) as date_month
+    from generate_series(0, 299) as t(seq)  
 ),
 
 time_attributes as (

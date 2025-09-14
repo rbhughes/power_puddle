@@ -1,41 +1,41 @@
 {{ config(materialized='table') }}
 
-with recent_generation as (
-    select 
+WITH recent_generation AS (
+    SELECT
         g.plant_id_eia,
-        sum(g.net_generation_mwh) as total_generation_last_year,
-        f.fuel_category as primary_fuel_category,
-        row_number() over (partition by g.plant_id_eia order by sum(g.net_generation_mwh) desc) as rn
-    from {{ ref('fact_generation') }} g
-    join {{ ref('dim_fuel') }} f on g.fuel_dim_key = f.fuel_dim_key
-    join {{ ref('dim_time') }} t on g.report_date = t.report_date
-    where t.report_year = 2023  -- Most recent year
-    group by 1, 3
+        SUM(g.net_generation_mwh) AS total_generation_last_year,
+        f.fuel_category AS primary_fuel_category,
+        ROW_NUMBER() OVER (PARTITION BY g.plant_id_eia ORDER BY SUM(g.net_generation_mwh) DESC) AS rn
+    FROM {{ ref('fact_generation') }} g
+    JOIN {{ ref('dim_fuel') }} f ON g.fuel_dim_key = f.fuel_dim_key
+    JOIN {{ ref('dim_time') }} t ON g.report_date = t.report_date
+    WHERE t.report_year = 2023 -- Most recent year
+    GROUP BY 1, 3
 )
 
-select 
+SELECT
     dc.data_center_name,
-    dc.address as datacenter_address,
-    p.plant_name_eia as nearest_plant_name,
-    p.county as plant_county,
+    dc.address AS datacenter_address,
+    dc.latitude AS datacenter_latitude,
+    dc.longitude AS datacenter_longitude,
+    p.plant_name_eia AS nearest_plant_name,
+    p.county AS plant_county,
+    p.latitude AS plant_latitude,
+    p.longitude AS plant_longitude,
     dc.nearest_plant_distance_miles,
-    
     -- Plant characteristics
-    p.fuel_types_list as available_fuel_types,
+    p.fuel_types_list AS available_fuel_types,
     p.plant_fuel_classification,
-    
     -- Recent generation from nearest plant
-    coalesce(rg.total_generation_last_year, 0) as nearest_plant_generation_mwh_last_year,
-    coalesce(rg.primary_fuel_category, 'No Recent Data') as nearest_plant_primary_fuel,
-    
+    COALESCE(rg.total_generation_last_year, 0) AS nearest_plant_generation_mwh_last_year,
+    COALESCE(rg.primary_fuel_category, 'No Recent Data') AS nearest_plant_primary_fuel,
     -- Carbon intensity of nearest power source
-    case 
-        when coalesce(rg.primary_fuel_category, '') in ('Coal') then 'High Carbon'
-        when coalesce(rg.primary_fuel_category, '') in ('Natural Gas', 'Petroleum') then 'Medium Carbon'  
-        when coalesce(rg.primary_fuel_category, '') in ('Nuclear', 'Wind', 'Solar', 'Hydro') then 'Low Carbon'
-        else 'Unknown'
-    end as nearest_plant_carbon_profile
-
-from {{ ref('dim_data_center') }} dc
-left join {{ ref('dim_plant') }} p on dc.nearest_plant_id_eia = p.plant_id_eia
-left join recent_generation rg on p.plant_id_eia = rg.plant_id_eia and rg.rn = 1
+    CASE
+        WHEN COALESCE(rg.primary_fuel_category, '') IN ('Coal') THEN 'High Carbon'
+        WHEN COALESCE(rg.primary_fuel_category, '') IN ('Natural Gas', 'Petroleum') THEN 'Medium Carbon'
+        WHEN COALESCE(rg.primary_fuel_category, '') IN ('Nuclear', 'Wind', 'Solar', 'Hydro') THEN 'Low Carbon'
+        ELSE 'Unknown'
+    END AS nearest_plant_carbon_profile
+FROM {{ ref('dim_data_center') }} dc
+LEFT JOIN {{ ref('dim_plant') }} p ON dc.nearest_plant_id_eia = p.plant_id_eia
+LEFT JOIN recent_generation rg ON p.plant_id_eia = rg.plant_id_eia AND rg.rn = 1

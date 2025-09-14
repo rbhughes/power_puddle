@@ -1,4 +1,3 @@
--- models/marts/dashboard_illinois_datacenter_impact.sql
 {{ config(materialized='table') }}
 
 with illinois_generation as (

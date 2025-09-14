@@ -3,11 +3,13 @@ from flask_cors import CORS
 import duckdb
 import os
 
-# Import endpoint blueprints
-from .endpoints.carbon_plants import carbon_plants_bp
 from .endpoints.mart_monthly import mart_monthly_bp
-# from endpoints.fuel_mix import fuel_mix_bp
-# from endpoints.datacenter_proximity import datacenter_bp
+from .endpoints.il_data_centers import il_data_centers_bp
+from .endpoints.il_power_plants import il_power_plants_bp
+
+# from .endpoints.carbon_plants import carbon_plants_bp
+# from .endpoints.il_datacenter_impact import il_datacenter_bp
+# from .endpoints.il_datacenter_plant_proximity import il_datacenter_plant_proximity_bp
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for Grafana
@@ -19,16 +21,18 @@ def get_db_connection():
     return duckdb.connect(db_path)
 
 
-app.register_blueprint(carbon_plants_bp, url_prefix="/api")
 app.register_blueprint(mart_monthly_bp, url_prefix="/api")
+app.register_blueprint(il_data_centers_bp, url_prefix="/api")
+app.register_blueprint(il_power_plants_bp, url_prefix="/api")
 
-# app.register_blueprint(fuel_mix_bp, url_prefix="/api")
-# app.register_blueprint(datacenter_bp, url_prefix="/api")
+# app.register_blueprint(carbon_plants_bp, url_prefix="/api")
+# app.register_blueprint(il_datacenter_bp, url_prefix="/api")
+# app.register_blueprint(il_datacenter_plant_proximity_bp, url_prefix="/api")
 
 
 @app.route("/api/health")
 def health_check():
-    return {"status": "healthy", "message": "Illinois Energy API"}
+    return {"status": "healthy", "message": "Power Puddle API"}
 
 
 if __name__ == "__main__":

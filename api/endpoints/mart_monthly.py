@@ -4,10 +4,10 @@ import pandas as pd
 mart_monthly_bp = Blueprint("mart_monthly", __name__)
 
 
-@mart_monthly_bp.route("/monthly-generation-trends")
-def get_monthly_generation_trends():
+@mart_monthly_bp.route("/us-monthly-generation-trends")
+def get_us_monthly_generation_trends():
     """
-    Endpoint for monthly generation trends line chart
+    Endpoint for monthly generation trends for all US
     Returns time series data grouped by fuel category
     DOES NOT WORK --strftime('%Y-%m-%dT%H:%M:%S.000Z', report_date) as report_date,
     """
@@ -21,12 +21,45 @@ def get_monthly_generation_trends():
                 fuel_category,
                 SUM(total_net_generation_mwh) as generation_mwh
             FROM main_marts.mart_monthly_generation_summary
-            WHERE report_date >= '2020-01-01'  -- Last 5 years for performance
+            --WHERE report_date >= '2020-01-01'  -- just return all
             GROUP BY report_date, fuel_category
             ORDER BY report_date, fuel_category
         """).df()
 
-        # ISO date alone does not satisfy grafana. Still need transform
+        # ISO date alone does not satisfy grafana/infinity.
+        # Still need transform of report_date field
+        df["report_date"] = pd.to_datetime(df["report_date"]).dt.strftime(
+            "%Y-%m-%dT%H:%M:%S.000Z"
+        )
+
+        return jsonify(df.to_dict("records"))
+    finally:
+        conn.close()
+
+
+@mart_monthly_bp.route("/il-monthly-generation-trends")
+def get_il_monthly_generation_trends():
+    """
+    Endpoint for monthly generation trends for IL
+    Returns time series data grouped by fuel category
+    """
+    from ..energy_api import get_db_connection
+
+    conn = get_db_connection()
+    try:
+        df = conn.execute("""
+            SELECT 
+                report_date,
+                fuel_category,
+                SUM(total_net_generation_mwh) as generation_mwh
+            FROM main_marts.mart_monthly_generation_summary
+            WHERE state = 'IL'
+            GROUP BY report_date, fuel_category
+            ORDER BY report_date, fuel_category
+        """).df()
+
+        # ISO date alone does not satisfy grafana/infinity.
+        # Still need transform of report_date field
         df["report_date"] = pd.to_datetime(df["report_date"]).dt.strftime(
             "%Y-%m-%dT%H:%M:%S.000Z"
         )
