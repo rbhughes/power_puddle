@@ -1,44 +1,3 @@
-# from flask import Blueprint, jsonify
-
-# il_power_plants_bp = Blueprint("il_power_plants", __name__, url_prefix="/api")
-
-
-# @il_power_plants_bp.route("/il-power-plants")
-# def get_illinois_power_plants():
-#     """
-#     Endpoint for Illinois power plants with generation data
-#     Returns plant name, latitude, longitude, total generation
-#     """
-#     from ..energy_api import get_db_connection
-
-#     conn = get_db_connection()
-
-#     try:
-#         df = conn.execute("""
-#             with illinois_plants_generation as (
-#                 select
-#                     p.plant_name_eia,
-#                     p.latitude as pp_latitude,
-#                     p.longitude as,
-#                     sum(f.net_generation_mwh) as total_net_generation_mwh
-#                 from main_marts.dim_plant p
-#                 inner join main_marts.fact_generation f
-#                     on p.plant_id_eia = f.plant_id_eia
-#                 where p.latitude between 36.970298 and 42.508481
-#                   and p.longitude between -91.513079 and -87.019935
-#                   and p.latitude is not null
-#                   and p.longitude is not null
-#                   and f.net_generation_mwh > 0
-#                 group by p.plant_name_eia, p.latitude, p.longitude
-#             )
-#             select * from illinois_plants_generation
-#             order by total_net_generation_mwh desc
-#         """).df()
-
-#         return jsonify(df.to_dict("records"))
-
-#     finally:
-#         conn.close()
 from flask import Blueprint, jsonify
 
 il_power_plants_bp = Blueprint("il_power_plants", __name__, url_prefix="/api")
@@ -48,7 +7,7 @@ il_power_plants_bp = Blueprint("il_power_plants", __name__, url_prefix="/api")
 def get_illinois_power_plants():
     """
     Endpoint for Illinois power plants with generation data
-    Returns plant name, latitude, longitude, total generation, primary fuel source type
+    Returns plant name, latitude, longitude, total generation, primary fuel
     """
     from ..energy_api import get_db_connection
 

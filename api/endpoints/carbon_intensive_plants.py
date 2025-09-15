@@ -1,9 +1,9 @@
 from flask import Blueprint, jsonify
 
-carbon_plants_bp = Blueprint("carbon_plants", __name__)
+carbon_intensive_plants_bp = Blueprint("carbon_intensive_plants", __name__)
 
 
-@carbon_plants_bp.route("/carbon-plants")
+@carbon_intensive_plants_bp.route("/carbon-intensive-plants")
 def get_carbon_plants():
     from ..energy_api import (
         get_db_connection,
@@ -12,15 +12,15 @@ def get_carbon_plants():
     conn = get_db_connection()
     try:
         df = conn.execute("""
-            SELECT 
+            select 
                 plant_name_eia,
                 state,
                 total_generation_mwh,
                 avg_heat_rate,
                 generation_rank
-            FROM main_marts.dashboard_carbon_intensive_plants 
-            ORDER BY total_generation_mwh DESC 
-            LIMIT 20
+            from main_marts.dashboard_carbon_intensive_plants 
+            order by total_generation_mwh desc 
+            limit 20
         """).df()
         return jsonify(df.to_dict("records"))
     finally:
