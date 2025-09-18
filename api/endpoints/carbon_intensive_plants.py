@@ -5,7 +5,7 @@ carbon_intensive_plants_bp = Blueprint("carbon_intensive_plants", __name__)
 
 @carbon_intensive_plants_bp.route("/carbon-intensive-plants")
 def get_carbon_plants():
-    from ..energy_api import (
+    from ..puddle_api import (
         get_db_connection,
     )  # Import moved here to avoid circular import
 

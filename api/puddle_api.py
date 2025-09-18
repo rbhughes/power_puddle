@@ -10,7 +10,7 @@ from .endpoints.il_power_plants import il_power_plants_bp
 from .endpoints.us_monthly_generation import us_monthly_generation_bp
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for Grafana
+CORS(app)  # Enable CORS for local Grafana
 
 
 def get_db_connection():

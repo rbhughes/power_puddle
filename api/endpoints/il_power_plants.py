@@ -5,10 +5,8 @@ il_power_plants_bp = Blueprint("il_power_plants", __name__, url_prefix="/api")
 
 @il_power_plants_bp.route("/il-power-plants")
 def get_illinois_power_plants():
-    """
-    Endpoint for Illinois power plants with generation data
-    Returns plant name, latitude, longitude, total generation, primary fuel
-    """
+    """Endpoint for Illinois power plants with generation data"""
+
     from ..energy_api import get_db_connection
 
     conn = get_db_connection()

@@ -11,7 +11,8 @@ def get_us_monthly_generation_trends():
     Returns time series data grouped by fuel category
     NOPE: --strftime('%Y-%m-%dT%H:%M:%S.000Z', report_date) as report_date,
     """
-    from ..energy_api import get_db_connection
+
+    from ..puddle_api import get_db_connection
 
     conn = get_db_connection()
     try:
@@ -27,7 +28,7 @@ def get_us_monthly_generation_trends():
         """).df()
 
         # ISO date alone does not satisfy grafana/infinity.
-        # Still need transform of report_date field in Grafana
+        # Need to parse report_date field as YYYY-MM-DD HH:mm:ss in Grafana
         df["report_date"] = pd.to_datetime(df["report_date"]).dt.strftime(
             "%Y-%m-%dT%H:%M:%S.000Z"
         )
@@ -39,11 +40,9 @@ def get_us_monthly_generation_trends():
 
 @us_monthly_generation_bp.route("/il-monthly-generation")
 def get_il_monthly_generation_trends():
-    """
-    Endpoint for monthly generation trends for IL
-    Returns time series data grouped by fuel category
-    """
-    from ..energy_api import get_db_connection
+    """Endpoint for monthly generation trends for IL"""
+
+    from ..puddle_api import get_db_connection
 
     conn = get_db_connection()
     try:
@@ -69,7 +68,7 @@ def get_il_monthly_generation_trends():
         conn.close()
 
 
-# these below here are not implemented...
+# below here are not implemented...
 
 
 # @mart_monthly_bp.route("/generation-by-state")
