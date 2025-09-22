@@ -8,6 +8,7 @@ from .endpoints.carbon_intensive_plants import carbon_intensive_plants_bp
 from .endpoints.il_data_centers import il_data_centers_bp
 from .endpoints.il_power_plants import il_power_plants_bp
 from .endpoints.us_monthly_generation import us_monthly_generation_bp
+from .endpoints.mart_actual_vs_forecast import mart_actual_vs_forecast_bp
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for local Grafana
@@ -22,6 +23,7 @@ app.register_blueprint(carbon_intensive_plants_bp, url_prefix="/api")
 app.register_blueprint(il_data_centers_bp, url_prefix="/api")
 app.register_blueprint(il_power_plants_bp, url_prefix="/api")
 app.register_blueprint(us_monthly_generation_bp, url_prefix="/api")
+app.register_blueprint(mart_actual_vs_forecast_bp, url_prefix="/api")
 
 
 @app.route("/api/health")
@@ -37,3 +39,4 @@ if __name__ == "__main__":
 # http://localhost:5500/api/il-power-plants
 # http://localhost:5500/api/us-monthly-generation
 # http://localhost:5500/api/il-monthly-generation
+# http://localhost:5500/api/actual-vs-forecast

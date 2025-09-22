@@ -56,10 +56,14 @@ def load_table_from_backup(table_name: str):
         con.close()
 
 
-def read_excel_tab(file_path: str, sheet_name: str):
+def read_excel_tab(file_path: str, sheet_name: str | int, **kwargs):
     file_path = Path(file_path)
     if not file_path.exists():
         raise FileNotFoundError(f"File not found: {file_path}")
+    if file_path.suffix.lower() == ".xlsx":
+        engine = "openpyxl"
+    elif file_path.suffix.lower() == ".xls":
+        engine = "xlrd"
 
-    df = pd.read_excel(file_path, sheet_name=sheet_name, engine="openpyxl")
+    df = pd.read_excel(file_path, sheet_name=sheet_name, engine=engine, **kwargs)
     return df

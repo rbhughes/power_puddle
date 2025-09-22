@@ -7,7 +7,7 @@ il_power_plants_bp = Blueprint("il_power_plants", __name__, url_prefix="/api")
 def get_illinois_power_plants():
     """Endpoint for Illinois power plants with generation data"""
 
-    from ..energy_api import get_db_connection
+    from ..puddle_api import get_db_connection
 
     conn = get_db_connection()
 

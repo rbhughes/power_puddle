@@ -1,0 +1,547 @@
+{
+    "annotations": {
+        "list": [
+            {
+                "builtIn": 1,
+                "datasource": {
+                    "type": "grafana",
+                    "uid": "-- Grafana --"
+                },
+                "enable": true,
+                "hide": true,
+                "iconColor": "rgba(0, 211, 255, 1)",
+                "name": "Annotations & Alerts",
+                "type": "dashboard"
+            }
+        ]
+    },
+    "description": "COMED Region, Northern IL",
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 10,
+    "links": [],
+    "panels": [
+        {
+            "datasource": {
+                "type": "yesoreyeram-infinity-datasource",
+                "uid": "fexrp1nfxh4w0e"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "barWidthFactor": 0.6,
+                        "drawStyle": "line",
+                        "fillOpacity": 0,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "auto",
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": 0
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "actual_generation_gwh"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "dark-green",
+                                    "mode": "fixed"
+                                }
+                            },
+                            {
+                                "id": "custom.lineWidth",
+                                "value": 1
+                            },
+                            {
+                                "id": "custom.lineStyle",
+                                "value": {
+                                    "fill": "solid"
+                                }
+                            },
+                            {
+                                "id": "custom.fillOpacity",
+                                "value": 30
+                            },
+                            {
+                                "id": "displayName",
+                                "value": "Actual GwH"
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "forecast_2016"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "dark-red",
+                                    "mode": "fixed"
+                                }
+                            },
+                            {
+                                "id": "custom.lineWidth",
+                                "value": 4
+                            },
+                            {
+                                "id": "custom.lineStyle",
+                                "value": {
+                                    "dash": [
+                                        0,
+                                        10
+                                    ],
+                                    "fill": "dot"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "forecast_2017"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "dark-blue",
+                                    "mode": "fixed"
+                                }
+                            },
+                            {
+                                "id": "custom.lineStyle",
+                                "value": {
+                                    "dash": [
+                                        0,
+                                        10
+                                    ],
+                                    "fill": "dot"
+                                }
+                            },
+                            {
+                                "id": "custom.lineWidth",
+                                "value": 4
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "forecast_2018"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "#bc520b",
+                                    "mode": "fixed"
+                                }
+                            },
+                            {
+                                "id": "custom.lineWidth",
+                                "value": 4
+                            },
+                            {
+                                "id": "custom.lineStyle",
+                                "value": {
+                                    "dash": [
+                                        0,
+                                        10
+                                    ],
+                                    "fill": "dot"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "forecast_2019"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "#6c6768",
+                                    "mode": "fixed"
+                                }
+                            },
+                            {
+                                "id": "custom.lineWidth",
+                                "value": 4
+                            },
+                            {
+                                "id": "custom.lineStyle",
+                                "value": {
+                                    "dash": [
+                                        0,
+                                        10
+                                    ],
+                                    "fill": "dot"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "forecast_2020"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "dark-purple",
+                                    "mode": "fixed"
+                                }
+                            },
+                            {
+                                "id": "custom.lineWidth",
+                                "value": 4
+                            },
+                            {
+                                "id": "custom.lineStyle",
+                                "value": {
+                                    "dash": [
+                                        0,
+                                        10
+                                    ],
+                                    "fill": "dot"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "forecast_2021"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "#8e4d06",
+                                    "mode": "fixed"
+                                }
+                            },
+                            {
+                                "id": "custom.lineStyle",
+                                "value": {
+                                    "dash": [
+                                        0,
+                                        10
+                                    ],
+                                    "fill": "dot"
+                                }
+                            },
+                            {
+                                "id": "custom.lineWidth",
+                                "value": 4
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "forecast_2022"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "#705DA0",
+                                    "mode": "fixed"
+                                }
+                            },
+                            {
+                                "id": "custom.lineWidth",
+                                "value": 4
+                            },
+                            {
+                                "id": "custom.lineStyle",
+                                "value": {
+                                    "dash": [
+                                        0,
+                                        10
+                                    ],
+                                    "fill": "dot"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "forecast_2023"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "semi-dark-purple",
+                                    "mode": "fixed"
+                                }
+                            },
+                            {
+                                "id": "custom.lineWidth",
+                                "value": 4
+                            },
+                            {
+                                "id": "custom.lineStyle",
+                                "value": {
+                                    "dash": [
+                                        0,
+                                        10
+                                    ],
+                                    "fill": "dot"
+                                }
+                            },
+                            {
+                                "id": "custom.fillOpacity",
+                                "value": 20
+                            },
+                            {
+                                "id": "displayName",
+                                "value": "Forecast GwH (predicted 2023)"
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "actual_generation_gwh A predicted Linear regression"
+                        },
+                        "properties": [
+                            {
+                                "id": "displayName",
+                                "value": "Actual Generation LR"
+                            },
+                            {
+                                "id": "custom.lineStyle"
+                            },
+                            {
+                                "id": "custom.lineWidth",
+                                "value": 5
+                            },
+                            {
+                                "id": "custom.lineStyle"
+                            },
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "dark-green",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "A forecast_2023 predicted Linear regression"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "dark-purple",
+                                    "mode": "fixed"
+                                }
+                            },
+                            {
+                                "id": "custom.lineWidth",
+                                "value": 5
+                            },
+                            {
+                                "id": "displayName",
+                                "value": "Forecast LR"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 0,
+                "y": 0
+            },
+            "id": 1,
+            "options": {
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "hideZeros": false,
+                    "mode": "single",
+                    "sort": "none"
+                }
+            },
+            "pluginVersion": "12.1.0-pre",
+            "targets": [
+                {
+                    "columns": [],
+                    "datasource": {
+                        "type": "yesoreyeram-infinity-datasource",
+                        "uid": "fexrp1nfxh4w0e"
+                    },
+                    "filters": [],
+                    "format": "table",
+                    "global_query_id": "",
+                    "parser": "backend",
+                    "refId": "A",
+                    "root_selector": "",
+                    "source": "url",
+                    "type": "json",
+                    "url": "/api/actual-vs-forecast",
+                    "url_options": {
+                        "data": "",
+                        "method": "GET"
+                    }
+                }
+            ],
+            "title": "Actual vs Forecast Generated GwH",
+            "transformations": [
+                {
+                    "id": "convertFieldType",
+                    "options": {
+                        "conversions": [
+                            {
+                                "dateFormat": "YYYY-MM-DD HH:mm:ss",
+                                "destinationType": "time",
+                                "targetField": "report_date"
+                            }
+                        ],
+                        "fields": {}
+                    }
+                },
+                {
+                    "id": "prepareTimeSeries",
+                    "options": {}
+                },
+                {
+                    "id": "regression",
+                    "options": {
+                        "modelType": "linear",
+                        "xFieldName": "report_date",
+                        "yFieldName": "actual_generation_gwh"
+                    }
+                },
+                {
+                    "id": "regression",
+                    "options": {
+                        "xFieldName": "report_date",
+                        "yFieldName": "forecast_2023"
+                    }
+                },
+                {
+                    "id": "joinByField",
+                    "options": {
+                        "mode": "outer"
+                    }
+                },
+                {
+                    "id": "organize",
+                    "options": {
+                        "excludeByName": {
+                            "forecast_2016 A": true,
+                            "forecast_2017 A": true,
+                            "forecast_2018 A": true,
+                            "forecast_2019 A": true,
+                            "forecast_2020 A": true,
+                            "forecast_2021 A": true,
+                            "forecast_2022 A": true,
+                            "forecast_year A": true,
+                            "month A": true
+                        },
+                        "includeByName": {},
+                        "indexByName": {
+                            "A forecast_2023 predicted Linear regression": 11,
+                            "actual_generation_gwh A": 1,
+                            "actual_generation_gwh predicted Linear regression": 2,
+                            "forecast_2016 A": 3,
+                            "forecast_2017 A": 4,
+                            "forecast_2018 A": 5,
+                            "forecast_2019 A": 6,
+                            "forecast_2020 A": 7,
+                            "forecast_2021 A": 8,
+                            "forecast_2022 A": 9,
+                            "forecast_2023 A": 10,
+                            "forecast_year A": 12,
+                            "month A": 13,
+                            "report_date": 0
+                        },
+                        "renameByName": {}
+                    }
+                }
+            ],
+            "type": "timeseries"
+        }
+    ],
+    "preload": false,
+    "schemaVersion": 41,
+    "tags": [],
+    "templating": {
+        "list": []
+    },
+    "time": {
+        "from": "2015-12-31T18:00:00.000Z",
+        "to": "2030-12-31T07:00:00.000Z"
+    },
+    "timepicker": {},
+    "timezone": "browser",
+    "title": "Actual vs Forecast Generation",
+    "uid": "64453da9-11ed-4ba7-8183-31382d65c0bd",
+    "version": 12
+}

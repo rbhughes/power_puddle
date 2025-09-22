@@ -7,11 +7,18 @@ from src.etl.data_centers import (
     initialize_data_center_table,
     update_dc_table_with_geocode,
 )
+from src.etl.pjm import add_pjm_resources_table, add_pjm_forecasts_table
 
 
 @task(retries=3, retry_delay_seconds=60)
 def init_pudl_tables_task():
     initialize_pudl_tables(puddle_db)
+
+
+@task(retries=3, retry_delay_seconds=60)
+def init_pjm_tables_task():
+    add_pjm_resources_table(puddle_db)
+    add_pjm_forecasts_table(puddle_db)
 
 
 @task(retries=2, retry_delay_seconds=120)
@@ -45,13 +52,20 @@ def geocode_data_centers_task():
 @flow(name="Data Center ETL with Backup and Restore")
 def etl_flow():
     logger = get_run_logger()
-    logger.info("Initializing PUDL tables…")
-    init_pudl_tables_task()
-    logger.info("Scraping and loading data centers…")
-    scrape_result = scrape_data_centers_task()
-    logger.info(f"Scraping result: {scrape_result}")
-    logger.info("Geocoding data centers…")
-    geocode_data_centers_task()
+
+    # logger.info("Initializing PUDL tables…")
+    # init_pudl_tables_task()
+
+    logger.info("Initializing PJM tables…")
+    init_pjm_tables_task()
+
+    # logger.info("Scraping and loading data centers…")
+    # scrape_result = scrape_data_centers_task()
+    # logger.info(f"Scraping result: {scrape_result}")
+
+    # logger.info("Geocoding data centers…")
+    # geocode_data_centers_task()
+
     logger.info("ETL flow completed.")
 
 
