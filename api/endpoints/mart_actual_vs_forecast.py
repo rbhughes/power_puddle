@@ -30,7 +30,7 @@ def get_actual_vs_forecast():
     from ..puddle_api import get_db_connection
 
     conn = get_db_connection()
-    conn.execute("LOAD 'rapidfuzz';")
+    # conn.execute("LOAD 'rapidfuzz';")
 
     try:
         query = """
@@ -48,7 +48,6 @@ def get_actual_vs_forecast():
                 forecast_2022,
                 forecast_2023
             FROM main_marts.mart_actual_vs_forecast
-            --FROM main_marts.mart_actual_vs_forecast_by_name
             ORDER BY forecast_year, month
         """
         df = conn.execute(query).fetchdf()
