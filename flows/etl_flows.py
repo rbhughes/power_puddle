@@ -59,12 +59,12 @@ def etl_flow():
     logger.info("Initializing PJM tables…")
     init_pjm_tables_task()
 
-    # logger.info("Scraping and loading data centers…")
-    # scrape_result = scrape_data_centers_task()
-    # logger.info(f"Scraping result: {scrape_result}")
+    logger.info("Scraping and loading data centers…")
+    scrape_result = scrape_data_centers_task()
+    logger.info(f"Scraping result: {scrape_result}")
 
-    # logger.info("Geocoding data centers…")
-    # geocode_data_centers_task()
+    logger.info("Geocoding data centers…")
+    geocode_data_centers_task()
 
     logger.info("ETL flow completed.")
 
