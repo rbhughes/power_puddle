@@ -11,6 +11,9 @@ sources:
         columns:
           - name: plant_id_eia
             description: Unique six-digit EIA plant identification number (ORISPL).
+            tests:
+              - unique
+              - not_null
           - name: plant_id_pudl
             description: PUDL's manually assigned plant ID (may not be constant over time).
           - name: plant_name_eia
@@ -117,7 +120,6 @@ sources:
           - name: name
             description: "Data center name"
             tests:
-              - unique
               - not_null
           - name: address
             description: "Street address"

@@ -1,0 +1,7 @@
+version: 2
+models:
+  - name: mart_monthly_generation_summary
+    columns:
+      - name: report_date
+        tests:
+          - not_null

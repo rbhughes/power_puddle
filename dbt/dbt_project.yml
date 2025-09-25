@@ -8,7 +8,7 @@ profile: "puddle_profile"
 # These configurations specify where dbt should look for different types of files.
 model-paths: ["models"]
 analysis-paths: ["analyses"]
-test-paths: ["tests"]
+test-paths: ["../tests"] # because tests is outside the project directory!
 seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
