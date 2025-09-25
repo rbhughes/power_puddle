@@ -110,7 +110,7 @@
                             },
                             {
                                 "id": "displayName",
-                                "value": "Actual GwH"
+                                "value": "Actual GWh"
                             }
                         ]
                     },
@@ -350,14 +350,14 @@
                             },
                             {
                                 "id": "displayName",
-                                "value": "Forecast GwH (predicted 2023)"
+                                "value": "Forecast GWh (predicted 2023)"
                             }
                         ]
                     },
                     {
                         "matcher": {
                             "id": "byName",
-                            "options": "actual_generation_gwh A predicted Linear regression"
+                            "options": "actual_generation_gwh predicted Linear regression"
                         },
                         "properties": [
                             {
@@ -409,8 +409,8 @@
                 ]
             },
             "gridPos": {
-                "h": 8,
-                "w": 12,
+                "h": 18,
+                "w": 24,
                 "x": 0,
                 "y": 0
             },
@@ -451,7 +451,7 @@
                     }
                 }
             ],
-            "title": "Actual vs Forecast Generated GwH",
+            "title": "Actual vs Forecast Generated GWh",
             "transformations": [
                 {
                     "id": "convertFieldType",
@@ -543,5 +543,5 @@
     "timezone": "browser",
     "title": "Actual vs Forecast Generation",
     "uid": "64453da9-11ed-4ba7-8183-31382d65c0bd",
-    "version": 12
+    "version": 15
 }

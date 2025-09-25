@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: power_puddle
-    description: "PUDL and data centers"
+    description: "PUDL, PJM and Data Centers"
     schema: main
     tables:
       - name: core_eia_entity_plants
@@ -10,41 +10,141 @@ sources:
         description: "EIA static info about power plants"
         columns:
           - name: plant_id_eia
-            description: "Unique plant identifier"
-            tests:
-              - unique
-              - not_null
+            description: Unique six-digit EIA plant identification number (ORISPL).
+          - name: plant_id_pudl
+            description: PUDL's manually assigned plant ID (may not be constant over time).
           - name: plant_name_eia
-            description: "Plant name"
+            description: EIA-reported plant name.
           - name: state
-            description: "State abbreviation"
+            description: Two-letter US state abbreviation.
           - name: county
-            description: "County name"
+            description: County name in which the plant is located.
           - name: latitude
-            description: "Plant latitude"
+            description: Latitude coordinate of plant location (decimal degrees).
           - name: longitude
-            description: "Plant longitude"
+            description: Longitude coordinate of plant location (decimal degrees).
+          - name: city
+            description: City in which the plant is located.
+          - name: zip_code
+            description: Zip code for plant location.
+          - name: street_address
+            description: Street address of the plant.
+          - name: operational_status
+            description: Operating status for the plant (e.g., operating, retired).
+          - name: operational_status_code
+            description: Code for the operational status.
+          - name: utility_id_eia
+            description: EIA Utility Identification number.
+          - name: utility_id_pudl
+            description: PUDL utility ID (may not be stable over time).
+          - name: utility_name_eia
+            description: Utility name as reported by the EIA.
+          - name: data_maturity
+            description: Level of maturity of the data record (final, preliminary, etc.).
 
       - name: core_eia923_monthly_generation_fuel
         identifier: monthly_gen
         description: "EIA 923 monthly generation and fuel data"
         columns:
           - name: plant_id_eia
-            description: "Plant identifier"
+            description: The unique six-digit facility identification number (ORISPL) assigned by the Energy Information Administration.
+          - name: generator_id
+            description: Generator ID, usually numeric but may include letters; treat as string.
           - name: report_date
-            description: "Monthly report date"
+            description: Date reported.
+          - name: plant_name_eia
+            description: Plant name reported by EIA.
           - name: net_generation_mwh
-            description: "Net generation in MWh"
+            description: Net electricity generation for the specified period in megawatt-hours (MWh).
+          - name: unit_id_pudl
+            description: Dynamically assigned PUDL unit id (not guaranteed to be static long term).
+          - name: plant_id_pudl
+            description: A manually assigned PUDL plant ID; may not be constant over time.
+          - name: utility_id_eia
+            description: The EIA Utility Identification number.
+          - name: utility_id_pudl
+            description: A manually assigned PUDL utility ID; may not be stable over time.
+          - name: utility_name_eia
+            description: The name of the utility.
+          - name: data_maturity
+            description: Level of maturity of the data record. Some data sources report less-than-final data.
 
       - name: core_eia923_monthly_generation_fuel_nuclear
         identifier: monthly_gen_nuc
         description: "EIA 923 nuclear generation data"
         columns:
           - name: plant_id_eia
-            description: "Plant identifier"
-          - name: nuclear_unit_id
-            description: "Nuclear unit identifier"
+            description: Unique six-digit EIA plant identification number (ORISPL).
+          - name: report_date
+            description: Reporting month/year.
+          - name: prime_mover_code
+            description: Code for the type of prime mover (e.g. CT, ST, NU).
+          - name: energy_source_code
+            description: 2-3 letter code indicating the energy source (fuel type) used (e.g. nuclear).
+          - name: plant_name_eia
+            description: Plant name reported to EIA.
+          - name: net_generation_mwh
+            description: Net electricity generation in megawatt-hours (MWh) for the period.
+          - name: fuel_consumed_for_electricity_mmbtu
+            description: Total consumption of fuel for generating electricity (million BTU).
+          - name: fuel_consumed_for_electricity_units
+            description: Physical units of nuclear fuel consumed for generation.
+          - name: fuel_consumed_mmbtu
+            description: Total fuel consumption for generation and steam (million BTU).
+          - name: fuel_consumed_units
+            description: Physical units of fuel consumed (generation and steam).
+          - name: fuel_mmbtu_per_unit
+            description: Heat content of the fuel in millions of BTUs per physical unit.
+          - name: fuel_type_code_agg
+            description: Partial aggregation of fuel type codes into broader EIA categories (AER, MER).
+          - name: fuel_type_code_pudl
+            description: Simplified fuel type code assigned by PUDL.
+          - name: plant_id_pudl
+            description: PUDL's manually assigned plant ID (may not be constant).
+          - name: utility_id_eia
+            description: EIA Utility ID.
+          - name: utility_id_pudl
+            description: PUDL utility ID (may not be stable over time).
+          - name: utility_name_eia
+            description: Name of the utility organization.
+          - name: data_maturity
+            description: Data record maturity level/finality indicator.
 
       - name: data_centers
         identifier: data_centers
         description: "Geocoded Illinois data centers"
+        columns:
+          - name: name
+            description: "Data center name"
+            tests:
+              - unique
+              - not_null
+          - name: address
+            description: "Street address"
+          - name: latitude
+            description: "Latitude"
+          - name: longitude
+            description: "Longitude"
+          - name: county
+
+      - name: pjm_forecasts
+        identifier: pjm_forecasts
+        description: "Geocoded Illinois data centers"
+        columns:
+          - name: pk
+            description: "publication year + zone_name + year + month"
+            tests:
+              - unique
+              - not_null
+          - name: publication_year
+            description: "Year the forecast was published"
+          - name: zone_name
+            description: "PJM zone name (just COMED)"
+          - name: year
+            description: "Year of forecast"
+          - name: month
+            description: "Month of forecast"
+          - name: peak_mw
+            description: "Forecasted peak demand (MW)"
+          - name: energy_gwh
+            description: "Forecasted energy demand (GWh)"

@@ -24,8 +24,8 @@
   "panels": [
     {
       "gridPos": {
-        "h": 14,
-        "w": 20,
+        "h": 18,
+        "w": 24,
         "x": 0,
         "y": 0
       },
@@ -34,7 +34,7 @@
         "name": "PUDL IL Monthly Power Generation",
         "uid": "bexwbiohjvh8gd"
       },
-      "title": "PUDL IL Monthly Power Generation",
+      "title": "PUDL IL Monthly Power Generation MWh",
       "type": "library-panel-ref"
     }
   ],
@@ -54,5 +54,5 @@
   "timezone": "browser",
   "title": "il_monthly_generation_trends",
   "uid": "a8bbf957-1ad1-4edf-84ce-15867c363d76",
-  "version": 3
+  "version": 4
 }

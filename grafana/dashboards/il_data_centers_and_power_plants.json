@@ -23,8 +23,8 @@
     "panels": [
         {
             "gridPos": {
-                "h": 34,
-                "w": 14,
+                "h": 37,
+                "w": 24,
                 "x": 0,
                 "y": 0
             },
@@ -33,7 +33,7 @@
                 "name": "Illinois power plants and data centers (full state)",
                 "uid": "fexwcg2paktfke"
             },
-            "title": "New panel",
+            "title": "IL Power Plants and Data Centers",
             "type": "library-panel-ref"
         }
     ],
@@ -51,5 +51,5 @@
     "timezone": "browser",
     "title": "power_plants_and_data_centers",
     "uid": "6fe9e93c-8696-4ea2-870f-72098d446d00",
-    "version": 10
+    "version": 12
 }

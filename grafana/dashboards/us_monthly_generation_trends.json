@@ -24,8 +24,8 @@
   "panels": [
     {
       "gridPos": {
-        "h": 14,
-        "w": 20,
+        "h": 18,
+        "w": 24,
         "x": 0,
         "y": 0
       },
@@ -34,7 +34,7 @@
         "name": "PUDL US Monthly Power Generation",
         "uid": "bexwbk0ht4dtse"
       },
-      "title": "PUDL US Monthly Power Generation",
+      "title": "PUDL US Monthly Power Generation MWh",
       "type": "library-panel-ref"
     }
   ],
@@ -54,5 +54,5 @@
   "timezone": "browser",
   "title": "us-monthly_generation_trends",
   "uid": "041f1c70-30fe-4cd1-a981-f956737185f2",
-  "version": 7
+  "version": 8
 }
