@@ -4,90 +4,74 @@
 
 ### Is the Illinois power grid prepared for projected data center growth?
 
-To answer this question, we examine
+To answer this question, we examine:
 
 - historical electrical generation from [PUDL](https://catalystcoop-pudl.readthedocs.io/en/nightly/index.html#)
 - forecasts from the managing operator [PJM](https://www.pjm.com/about-pjm)
 - the existing mix of power plants and Illinois government policies
 - a brief survey of recent data center construction
 
-Based on the analysis, we can make three broad observations:
+Based on the analysis, we can make four key observations:
 
-<div style="border: 2px solid #f8a444; padding: 20px; border-radius: 5px; background:pink; font-weight: bold">
-
-1. Past electrical generation since 2002 in the Northern Illinois ComEd zone shows a steady, modest rise.
-
-2. Hyperscaler data center growth in the Midwest is not an illusion [16]. States and consumers are feeling the price increases [18].
-
-3. PJM forecasts for 2025 and beyond do NOT show an expected "AI bump" and are relatively flat, suggesting a "wait and see" approach from operators.
-
-4. The flat prediction is probably wrong. ComEd might rely on nuclear to offset high demand in the immediate future--maybe 2-5 years but, operators and governments should fast-track new renewable plants now.
-</div>
+> 1. Past electrical generation since 2002 in the Northern Illinois ComEd zone shows a steady, modest rise.
+> 2. Hyperscaler data center growth in the Midwest is not an illusion [16]. States and consumers are feeling the price increases [18].
+> 3. PJM forecasts for 2025 and beyond do NOT show an expected "AI bump" and are relatively flat, suggesting a "wait and see" approach from operators.
+> 4. The flat prediction is probably wrong. ComEd might rely on nuclear to offset high demand in the immediate future--maybe 2-5 years but, operators and governments should fast-track new renewable plants now.
 
 ## Business Problem
 
-The rapid growth of energy-hungry AI/ML dominates the news cycle. Google Trends shows a 5X increase in the term "[data center](https://trends.google.com/trends/explore?date=today%205-y&geo=US&q=data%20center&hl=en)" in the last 5 years. Common refrains include soaring energy bills and imminent grid collapse.[7][10][11][12] A robust power grid is essential for Illinois to attract investment and continue its role as a key infrastructure hub.
+The rapid growth of energy-intensive AI/ML technologies dominates the current energy discourse. Google Trends reveals a **fivefold increase** in searches for "[data center](https://trends.google.com/trends/explore?date=today%205-y&geo=US&q=data%20center&hl=en)" over the past five years. Media coverage highlights concerns of soaring energy bills and the possibility of grid instability [7][10][11][12]. For Illinois, maintaining a robust and resilient power grid is essential to sustaining investment and reinforcing its position as a critical national infrastructure hub.
 
-Illinois is an interesting case study for data center growth:
+Illinois offers a particularly instructive case study in data center expansion:
 
-- Illinois currently ranks as one of the top five data center markets globally, with Chicago specifically tied for the third-largest hub in the U.S. (222 sites in Q3 2025).[15]
-- Data centers in Illinois consumed about 5.4% of the state’s total electricity use as of early 2025, a much higher percentage than national averages.[1]
-- Illinois generates more electricity from nuclear energy than any other state, accounting for one-eighth of the nation's total nuclear power generation.[2]
+- The state ranks among the **top five global data center markets**, with Chicago tied for the **third-largest hub in the U.S.** (222 sites in Q3 2025) [15].
+- Data centers in Illinois consumed approximately **5.4% of statewide electricity** as of early 2025, significantly higher than national averages [1].
+- Illinois is the nation’s leading producer of **nuclear power**, generating nearly one-eighth of total U.S. nuclear electricity [2].
 
-The past, present and future contexts can help us learn about IL readiness:
+These dynamics underscore the importance of examining the **past, present, and future** of Illinois’ electricity system as it prepares for continued data center growth.
 
 **PAST:**  
-We have historical power generation data from [PUDL](https://catalystcoop-pudl.readthedocs.io/en/nightly/index.html#) (pronounced puddle), a data processing pipeline created by [Catalyst Cooperative](https://catalyst.coop/) that cleans, integrates, and standardizes some of the most widely used public energy datasets in the US. **_We have decades of monthly power generation data from PUDL for the US._**
+Historical records from [PUDL](https://catalystcoop-pudl.readthedocs.io/en/nightly/index.html#) (pronounced _puddle_) provide decades of monthly generation data at national and state levels. Developed by [Catalyst Cooperative](https://catalyst.coop/), PUDL consolidates, cleans, and standardizes widely used public datasets. _This long-term record allows direct analysis of generation capacity and mix in Illinois since the early 2000s._
 
 **PRESENT:**  
-Analysts are sounding the alarm today on grid readiness, cost increases for consumers and water usage.[10][11][12] Synapse predicts an 8% price hike soon. Governors in PJM states are pushing for relief from data center-related price spikes.[7] **_The prevalence of news coverage alone suggests that there are real risks that need evaluation._**
+Indicators suggest that pressure on the Illinois grid is already materializing. Analysts cite rising consumer costs, water usage concerns, and capacity constraints [10][11][12]. Forecasts by Synapse point to a near-term **8% price increase**. Additionally, policymakers in PJM states are increasingly vocal about the financial impacts of data center demand on electricity markets [7]. _The breadth and frequency of these warnings suggest that current risks, while unevenly distributed, are both tangible and escalating._
 
 **FUTURE:**  
-[PJM](https://www.pjm.com/about-pjm) is the regional transmission operator that keeps the power grid running smoothly across several eastern US states, including the COMED (Commonwealth Edison) zone in Northern Illinois. PJM doesn’t make electricity; it manages who supplies power, keeps prices stable and prevents outages. Think of PJM as an "air traffic controller" of energy distribution. Monitoring of data center energy use in IL will improve greatly with the passing of SB2181, which will mandate site-level energy and water use starting in 2026.[5] **_PJM publishes forecast data, and we have several years of forecasts we can evaluate for accuracy._**
+Illinois is part of the [PJM](https://www.pjm.com/about-pjm) interconnection, a multi-state regional transmission operator. PJM does not generate power; rather, it functions as the **traffic control system** for electricity, balancing supply and demand to prevent outages and price volatility. Within the COMED (Commonwealth Edison) zone in Northern Illinois, PJM plays a critical role in integrating future data center growth. Looking ahead, transparency will increase with the passage of **SB2181**, which requires data centers to disclose site-level energy and water consumption starting in 2026 [5]. _Coupled with PJM’s multi-year demand forecasts, these data sources provide a foundation for assessing Illinois’ readiness under different growth scenarios._
 
 ## Tech Stack Overview
 
-<div style="border: 2px solid #f8a444; padding: 20px; border-radius: 5px;">
+#### Data Sources
 
-#### DATA SOURCES:
+- [The Public Utility Data Liberation (PUDL) Project](https://catalyst.coop/pudl/) — open-source U.S. electricity sector data
+- [PJM](https://www.pjm.com/) — regional coordinator of electricity in all or parts of 13 states and D.C.
+- [DATACENTERS.com](https://www.datacenters.com/) — searchable directory of U.S. data centers
+- [Nominatim](https://nominatim.org/) — open-source geocoding API service
 
-- [The Public Utility Data Liberation (PUDL) Project](https://catalyst.coop/pudl/) - open-source US electricity sector data
-- [PJM](https://www.pjm.com/) - a regional coordinator of electricity in all or parts of 13 states and DC.
+#### Stack
 
-- [DATACENTERS.com](https://www.datacenters.com/) - searchable directory of US data centers
-- [Nominatim](https://nominatim.org/) - open-source geocoding API service
-
-#### STACK:
-
-| tech                                  | usage                                                                                                  |
+| Technology                            | Usage                                                                                                  |
 | ------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| [DuckDB](https://duckdb.org/)         | fast, portable local database, optimized for analytical workflows in data science                      |
-| [Selenium](https://www.selenium.dev/) | open-source automation framework for web browsers                                                      |
-| [dbt](https://www.getdbt.com/)        | (data build tool) an open-source command-line tool to model objects in SQL                             |
-| [Prefect](https://www.prefect.io/)    | a pythonic open-source framework for orchestrating, scheduling, and monitoring data workflows          |
-| [Grafana](https://grafana.com/)       | open-source platform for creating interactive dashboards and visualizing metrics, logs, and other data |
-
-</div>
+| [DuckDB](https://duckdb.org/)         | Fast, portable local database optimized for analytical workflows in data science                       |
+| [Selenium](https://www.selenium.dev/) | Open-source automation framework for web browsers                                                      |
+| [dbt](https://www.getdbt.com/)        | Open-source command-line tool for modeling transformations and objects in SQL                          |
+| [Prefect](https://www.prefect.io/)    | Pythonic open-source framework for orchestrating, scheduling, and monitoring data workflows            |
+| [Grafana](https://grafana.com/)       | Open-source platform for creating interactive dashboards and visualizing metrics, logs, and other data |
 
 ## Installation & Quickstart
 
 #### PREREQUISITES:
 
-<div style="border: 2px solid #f8a444; padding: 20px; border-radius: 5px;">
+- **Python**: I used v3.13.7; anything from 3.10+ will probably work.
 
-**Python**: I used v3.13.7; anything from 3.10+ will probably work.
+- **Git**: 2.51 was used for this project. 2+ should work.
 
-**Git**: 2.51 was used for this project. 2+ should work.
+- **Grafana**: homebrew: `brew install grafana` `brew services start grafana`
 
-**Grafana**: homebrew: `brew install grafana` `brew services start grafana`
-
-**uv**: (sort of optional, but highly recommended) `brew install uv` or `pipx install uv`
-
-</div>
+- **uv**: (sort of optional, but highly recommended) `brew install uv` or `pipx install uv`
 
 #### SETUP:
 
-<div style="border: 2px solid #f8a444; padding: 20px; border-radius: 5px;">
 **1. Clone the repo**:
 
 `git clone git@github.com:rbhughes/power_puddle.git`
@@ -129,123 +113,133 @@ Test a route in your browser:
 
 I'll leave this as an exercise for the reader. It is likely that some incompatibility in the JSON formats will have crept in for open source Grafana, but exports of the visualizations and dashboards in this repo are in `grafana/dashboards`.
 
-</div>
-
 ## Architecture Diagram
 
 [_Insert workflow diagram here._]
 
 ## Workflow Steps
 
-Most of these steps are orchestrated with Prefect. Refer to the [Prefect flows](flows/etl_flows.py) for details. We are using DuckDB for it's native parquet support and simplicity. \*_PostgreSQL was a close runner-up, but my dev environment was configured for an older version that I didn't want to break._
+Most steps are orchestrated with Prefect. See the [Prefect flows](flows/etl_flows.py) for technical details. DuckDB was chosen for its native parquet support and simplicity.  
+_PostgreSQL was a close runner-up, but my dev environment was configured for an older version that I didn't want to break._
 
-1. **Collect PJM data**
+---
 
-   The PJM site has rudimentary search and download capabilities. The forecast files we need are available as either Excel .xls or .xlsx formats and have a somewhat inconsistent naming convention. This is historical data; just download them to the data [directory](data/pjm/).
+**1. Collect PJM data**
 
-   Note: The `<year>-load-report-data.xlsx` files contain forecast data for the publication year and several years into the future. We use this for COMED forecasts. The `*stage-1-resources-by-zone*` files were an attempt to link PJM's COMED power plant names to PUDL `plant_name_eia` but was deemed too inaccurate to use.
+The PJM site has basic search and download features. The forecast files required are available as Excel files (.xls or .xlsx) with inconsistent naming. Download the relevant files to the [data directory](data/pjm/).
 
-2. **Initialize PUDL tables**
+> Note: `<year>-load-report-data.xlsx` files contain forecast data for the publication year and several years ahead. These are used for COMED forecasts. The `*stage-1-resources-by-zone*` files, once considered for linking PJM and PUDL plant names, were too unreliable for use.
 
-   Load the parquet files from the PUDL distribution's S3 site into a local DuckDB database. These contain power plant id/location and monthly historical generation data for all states. Data on nuclear generation is managed separately; we merge them later.
+---
 
-   | PUDL                                        | DuckDB                      |
-   | ------------------------------------------- | --------------------------- |
-   | core_eia\_\_entity_plants                   | puddle.main.plants          |
-   | core_eia\_\_monthly_generation_fuel_nuclear | puddle.main.monthly_gen_nuc |
-   | core_eia\_\_monthly_generation_fuel         | puddle.main.monthly_gen     |
+**2. Initialize PUDL tables**
 
-3. **Collect Data Center info**
+Load the parquet files from the PUDL distribution’s S3 site into your local DuckDB database. These contain power plant locations and monthly historical generation data for all states. Nuclear generation data is managed separately and merged later.
 
-   Use Selenium + BeautifulSoup to scrape data center names and street addresses from datacenters.com. This is fairly straightforward, but the site will rate-limit requests and has some tricky pagination. Once we have to addresses, use Nominative for geocoding to get latitude, longitude.
+| PUDL                                        | DuckDB                      |
+| ------------------------------------------- | --------------------------- |
+| core_eia\_\_entity_plants                   | puddle.main.plants          |
+| core_eia\_\_monthly_generation_fuel_nuclear | puddle.main.monthly_gen_nuc |
+| core_eia\_\_monthly_generation_fuel         | puddle.main.monthly_gen     |
 
-   Note that we don't use these data center locations for meaningful analysis. However, it is illuminating that nearly all 154 locations are in Northern IL and fall within the COMED zone. Southern IL looks like a different state.
+---
 
-4. **Run dbt workflows**
+**3. Collect Data Center info**
 
-   **Staging**
+Scrape data center names and street addresses from datacenters.com using Selenium and BeautifulSoup. The site imposes rate limits and has tricky pagination. After obtaining addresses, use Nominatim for geocoding (lat/lon).
 
-   We need to merge the monthly generation from nuclear with monthly generation from other sources (solar, natural gas, oil, etc.). The main logic involves standardizing the `fuel_type_code_pudl` values as `fuel_category`.
+> These locations are not used for primary analysis but highlight that nearly all 154 are in Northern IL (within the COMED zone), while Southern IL coverage is sparse.
 
-   **Intermediate**
+---
 
-   Basically, just a union of `monthly_gen` and `monthly_gen_nuc` since nuclear MWh is reported separately by the US EIA.
+**4. Run dbt workflows**
 
-   **Marts**
+- **Staging:**  
+  Merge monthly generation from nuclear and other sources (solar, natural gas, oil, etc.), standardizing the `fuel_type_code_pudl` values as `fuel_category`.
+- **Intermediate:**  
+  Perform a union of `monthly_gen` and `monthly_gen_nuc` since nuclear MWh is reported separately by the US EIA.
+- **Marts:**
 
-   | model                                 | purpose                                         |
-   | ------------------------------------- | ----------------------------------------------- |
-   | `dim_data_center.sql`                 | list from datacenters.com + lat/lon             |
-   | `dim_fuel.sql`                        | standardize `fuel_type_code_pudl` values        |
-   | `dim_plant.sql`                       | power plant metadata from PUDL                  |
-   | `fact_generation.sql`                 | overkill, but used to group generation by plant |
-   | `mart_actual_vs_forecast.sql`         | MWh from PUDL vs forecasts from PJM             |
-   | `mart_monthly_generation_summary.sql` | all US (and IL) historical PUDL MWh             |
+| model                                 | purpose                                  |
+| ------------------------------------- | ---------------------------------------- |
+| `dim_data_center.sql`                 | list from datacenters.com + lat/lon      |
+| `dim_fuel.sql`                        | standardize `fuel_type_code_pudl` values |
+| `dim_plant.sql`                       | power plant metadata from PUDL           |
+| `fact_generation.sql`                 | group generation by plant                |
+| `mart_actual_vs_forecast.sql`         | MWh from PUDL vs. forecasts from PJM     |
+| `mart_monthly_generation_summary.sql` | all US (and IL) historical PUDL MWh      |
 
-5. **Flask/Blueprint API**
+---
 
-   We're using Grafana for visualization and analysis. Grafana doesn't natively connect to DuckDB, but it can easily consume JSON from APIs. We define some endpoints that reference our dbt models and serve them via a local Flask app. This is ideal iterative local development and avoids the misery of intermediate .csv files or complexity of a local PostgreSQL instance.
+**5. Flask/Blueprint API**
 
-   The followig routes are defined:
+Grafana is used for visualization and analysis. It does not natively connect to DuckDB but can consume JSON from APIs. Endpoints reference the dbt models and are served via a local Flask app—ideal for iterative development and avoids handling intermediate CSV files or PostgreSQL setup.
 
-   | route                      | description                          |
-   | -------------------------- | ------------------------------------ |
-   | `/il-data-centers`         | data center names, lat/lon           |
-   | `/il-power-plants`         | power plants with net MWh generation |
-   | `/us-monthly-generation`   | US monthly generation time-series    |
-   | `/il-monthly-generation`   | IL monthly generation time-series    |
-   | `/actual-vs-forecast`      | PUDL generation vs PJM forecasts     |
-   | `/actual-vs-forecast-mase` | Mean Absolute Scaled Error scores    |
+Defined routes:
 
-6. **Define Grafana Visualizations**
+| route                      | description                          |
+| -------------------------- | ------------------------------------ |
+| `/il-data-centers`         | data center names, lat/lon           |
+| `/il-power-plants`         | power plants with net MWh generation |
+| `/us-monthly-generation`   | US monthly generation time-series    |
+| `/il-monthly-generation`   | IL monthly generation time-series    |
+| `/actual-vs-forecast`      | PUDL generation vs PJM forecasts     |
+| `/actual-vs-forecast-mase` | Mean Absolute Scaled Error scores    |
 
-   Grafana is running locally thanks to homebrew. Using the Flask routes described above we
+---
+
+**6. Define Grafana Visualizations**
+
+Grafana is run locally via Homebrew. Visualizations use the Flask API routes described above.
 
 ## Results & Insights
 
-#### IL Power Plants & Data Centers
+### IL Power Plants & Data Centers
 
-![IL Power Plants & Data Centers](docs/il_power_plants_and_data_centers.png "IL Power Plants & Data Centers")
+![IL Power Plants & Data Centers](docs/il_power_plants_and_data_centers.png)
 
-> The differences between the ComEd region in Northern Illinois and the Southern half of the state is striking. Large fossil-fuel plants (red) are mostly located in the South; nuclear power (purple) in the North. We can also see the clustering of data centers (yellow) near Chicago.
+> The distinction between the ComEd region in Northern Illinois and the southern half of the state is significant. Large fossil-fuel plants (red) are concentrated mostly in the south, while nuclear power (purple) dominates in the north. Data centers (yellow) are highly clustered near Chicago.
 
-#### US Generation Mix
+---
 
-![US Generation Mix](docs/us_generation_mix.png "US Generation Mix")
+### US Generation Mix
 
-> This busy time-series chart show monthly generation for the full US since 2002. Notable trends:
+![US Generation Mix](docs/us_generation_mix.png)
+
+> This time-series chart displays US monthly generation since 2002. Key trends include:
 >
-> - the gradual decline of Coal
-> - the rise and dominance of Natural Gas
-> - the general stability of Nuclear
-> - slow growth of renewables, mostly Wind and Solar
+> - The gradual decline of coal
+> - The rise and dominance of natural gas
+> - General stability of nuclear power
+> - Steady but slower growth in renewables, primarily wind and solar
 
-#### IL Generation Mix
+---
 
-![IL Generation Mix](docs/il_generation_mix.png "IL Generation Mix")
+### IL Generation Mix
 
-> The strong nuclear capacity in Northern Illinois differentiates it from other geographic regions. This chart includes fossil-fuel power plants in Southern Illinois, but nuclear's importance is clear. The importance of nuclear is set to continue, as a long-standing moratorium on new nuclear facilities in Illinois was recently updated to permit small nuclear plants [14].
+![IL Generation Mix](docs/il_generation_mix.png)
+
+> Northern Illinois's robust nuclear capacity sets it apart from other US regions. While this chart does include southern Illinois fossil-fuel plants, the magnitude of nuclear's impact is obvious. The state's nuclear moratorium has recently been updated, paving the way for small nuclear plant deployment [14].
 >
-> Also note the relatively small contribution from Natural Gas in Illinois in contrast to the total US chart above. Illinois is a large consumer of natural gas and has many pipelines, but future commitments to sustainability would likely focus on new wind and solar rather natural gas power plants [7].
+> Note the relatively modest contribution of natural gas in Illinois compared to the national picture. While Illinois is a major natural gas consumer with extensive pipeline infrastructure, future energy policy is expected to emphasize wind and solar over new gas-fired plants [7].
 
-#### IL ComEd Actual (PUDL) vs Forecast (PJM)
+---
 
-![Actual vs Forecast](/docs/actual_vs_forecast_with_lr.png "IL Actual vs Forecast")
+### IL ComEd Actual (PUDL) vs Forecast (PJM)
 
-> This is perhaps the most surprising finding from comparing the PUDL and PJM datasets. The PUDL dataset (green) reflects actual, reported MWh electrical generation for all participating ComEd counties in Northern Illinois. The PJM dataset (purple) represents the latest\* published forecast for several years into the future.
+![Actual vs Forecast](docs/actual_vs_forecast_with_lr.png)
 
-<p>
-<img src="docs/forecast_16-18.png" alt="PJM Forecast 2016-2018" style="width:49.8%; height:auto; display: inline-block;">
-<img src="docs/forecast_20-23.png" alt="PJM Forecast 2020-2023" style="width:49.8%; height:auto; display: inline-block;">
-</p>
-
-> Forecasts from 2016 through 2018 (left) seem to accurately predict modest growth.
+> Analyzing the PUDL and PJM datasets side-by-side reveals surprising results. The PUDL data (green) shows actual MWh generated for all ComEd counties in Northern Illinois. PJM data (purple) reflects the latest published forecasts for upcoming years.
 >
-> Forecasts from 2019 through 2023 (right) depict steady-state. Not sure why.
+> ![PJM Forecast 2016-2018](docs/forecast_16-18.png) > ![PJM Forecast 2020-2023](docs/forecast_20-23.png)
 >
-> Despite all the jeremiads about the looming grid failures and price spikes caused by data centers, **the latest forecasts from the PJM show little or no projected increase in demand**. The forecast's linear regression looks nearly flat. The PJM acknowledges that their recent models may not accurately reflect the demands of hyperscale data centers, particularly in the ComEd zone [17]. It is unclear why not even modest growth is forecast for ComEd.
+> Forecasts from 2016–2018 appeared to project modest growth. In contrast, more recent forecasts from 2019–2023 are noticeably flat, lacking any anticipated surge in demand. Despite widespread warnings about looming grid failures and price shocks attributed to data centers, **the latest PJM forecasts still project minimal or no increase in future demand**. The linear trend looks nearly flat. PJM itself acknowledges possible underestimation of hyperscale data center impacts in the ComEd zone [17]. The absence of even modest projected growth is puzzling.
 >
-> _\* 2023 forecast from PJM, 2024 Excel file was corrupt (?!)_
+> _Note: 2023 forecast is from PJM; the 2024 Excel file was corrupted and could not be included._
+
+---
+
+#### Forecast Accuracy: Mean Absolute Scaled Error (MASE)
 
 I attempted to calculate a Mean Absolute Scaled Error to see if their forecast accuracy had measurably changed over the past few years, and it does suggest increasing error.
 
@@ -268,23 +262,23 @@ I attempted to calculate a Mean Absolute Scaled Error to see if their forecast a
 <td>
 
 <pre>
-Mean Absolute Scaled Error (MASE) is a measure of forecast accuracy.
-* A MASE of 0.7 = model’s error is 70% of the naïve error, good forecast.
-* A MASE of 2.2 = error is more than twice as large as simply predicting
-  the last actual for each step—poor forecast.
-* Lower is better, ideally below 1.
+MASE (Mean Absolute Scaled Error)** is a forecast accuracy metric:
 
-MASE is a scale-free error metric. Both the numerator (average absolute
-forecast error) and the denominator (average absolute naive error) are
-affected proportionally by multiplicative changes in the actuals:
+- MASE 0.7 — model's error is 70% of the naïve error (good).
+- MASE 2.2 — model's error is more than double the naïve forecast (poor).
+- Lower scores are better; scores below 1 are ideal.
+
+MASE is scale-independent. Changes in magnitude, actuals, or variance affect both the error numerator (average absolute forecast error) and denominator (average absolute naïve error) proportionally.
 </pre>
 
 </td>
 </tr>
 </table>
 
-> [!CAUTION]
-> For full accuracy, the calculation would need plant-by-plant data from PUDL for the ComEd zone to perfectly match PJM’s forecast inputs. This level of granularity is unavailable publicly. Attempts to "fuzzy match" plant names between PJM and PUDL were too inconsistent for reliable results. Additional complexity comes from interconnects, occasional non-PJM supply during high demand, new generators cycling on/off, and routine maintenance outages. The most robust method was to use all Northern Illinois counties associated with ComEd as the “actual” filter, leaving PJM forecasts unchanged.
+---
+
+> [!Caution]
+> For complete accuracy, this comparison would require plant-by-plant PUDL data mapped precisely to PJM’s forecast input list for the ComEd zone. That data is not publicly available. Attempts to fuzzy-match plant names across PJM and PUDL were inconsistent. Other complicating factors include interconnections, occasional non-PJM supply at times of peak demand, new generator additions/retirements, and scheduled outages. The chosen method uses all Northern Illinois counties assigned to ComEd as the “actual” filter, with PJM forecasts left unadjusted.
 
 ## References, Endnots & Further Reading
 
