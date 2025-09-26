@@ -1,4 +1,4 @@
-# Power Plants & Data Centers in Illinois – Data Engineering Workflow
+# Power Plants & Data Centers in Illinois
 
 ## Executive Summary
 
