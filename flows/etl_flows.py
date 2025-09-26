@@ -18,7 +18,7 @@ def init_pudl_tables_task():
 @task(retries=3, retry_delay_seconds=60)
 def init_pjm_tables_task():
     add_pjm_forecasts_table(puddle_db)
-    # add_pjm_resources_table(puddle_db)
+    # add_pjm_resources_table(puddle_db) # NOPE
 
 
 @task(retries=2, retry_delay_seconds=120)

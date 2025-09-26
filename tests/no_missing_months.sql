@@ -1,4 +1,4 @@
--- tests/no_missing_months.sql
+-- Test for gaps in months in the mart_monthly_generation_summary table
 
 WITH date_bounds AS (
     SELECT

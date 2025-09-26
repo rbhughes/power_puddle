@@ -57,6 +57,7 @@ def load_table_from_backup(table_name: str):
 
 
 def read_excel_tab(file_path: str, sheet_name: str | int, **kwargs):
+    """because old excel needs a different engine"""
     file_path = Path(file_path)
     if not file_path.exists():
         raise FileNotFoundError(f"File not found: {file_path}")

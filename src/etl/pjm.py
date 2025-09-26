@@ -2,6 +2,24 @@ from pathlib import Path
 from .util import read_excel_tab, puddle_db
 import duckdb
 
+"""
+To do a 100% sound statistical comparison of PUDL's hisotry and PJM's 
+forecasts we would need to define exactly what plants contributed over the
+years. This is defined in PUDL, but not in PJM. I tried to match the two
+data sets by using the plant names in PJM's resource lists, but
+the names are not consistent over the years, and they usually do not match 
+the plant names in PUDL. Fuzzy matching results were bad, and I'm not sure the
+plant names were comprehensive enough.
+
+There's also the problem that the COMED zone's interconnections to neighboring
+zones (AEP, ATSI, etc) mean that some load is served by plants outside
+the COMED zone, and some COMED plants serve load outside the COMED zone.
+
+Instead, I just used County names to filter PUDL's plant list to those
+in the same counties as PJM's COMED plants. This is not perfect, but
+it's a reasonable approximation.
+"""
+
 forecast_files = [
     "2016-load-report-data.xlsx",
     "2017-load-forecast-report-data.xlsx",

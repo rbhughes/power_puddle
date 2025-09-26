@@ -52,6 +52,7 @@ Illinois is part of the [PJM](https://www.pjm.com/about-pjm) interconnection, a 
 
 | Technology                            | Usage                                                                                                  |
 | ------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| [Python](https://www.python.org/)     | Expecting Visual Basic? All workflows and tools where chosen to be Python-centric                      |
 | [DuckDB](https://duckdb.org/)         | Fast, portable local database optimized for analytical workflows in data science                       |
 | [Selenium](https://www.selenium.dev/) | Open-source automation framework for web browsers                                                      |
 | [dbt](https://www.getdbt.com/)        | Open-source command-line tool for modeling transformations and objects in SQL                          |

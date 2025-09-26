@@ -17,6 +17,11 @@ from selenium.common.exceptions import TimeoutException
 # 3.1 Chicago 2 Data Center
 # 4.1 ORD2 Elk Grove Data Center
 
+"""
+Other reports say there are 222 data centers in Illinois. Datacenters.com only 
+lists 154. I found no other (free) source for the missing data centers.
+"""
+
 
 URL = "https://www.datacenters.com/locations/united-states/illinois"
 BTN = "button.Control__control__ijHLR.Pagination__pageItem__NsQSw.Pagination__symbol__KHv6r"
