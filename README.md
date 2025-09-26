@@ -58,6 +58,16 @@ Illinois is part of the [PJM](https://www.pjm.com/about-pjm) interconnection, a 
 | [Prefect](https://www.prefect.io/)    | Pythonic open-source framework for orchestrating, scheduling, and monitoring data workflows            |
 | [Grafana](https://grafana.com/)       | Open-source platform for creating interactive dashboards and visualizing metrics, logs, and other data |
 
+#### Data Engineering?
+
+Honestly, there wasn't much need for the "T" in ETL or much integration It's not that kind of DE project :)
+
+The team at [Catalyst](https://catalyst.coop/pudl/) have already done the work of reconciling EIA data using [Dagster](https://dagster.io/) instead of Prefect and hosting it on S3 in parquet format. They're also using dbt in an [interesting way](https://catalystcoop-pudl.readthedocs.io/en/latest/autoapi/pudl/dbt_wrapper/index.html#pudl.dbt_wrapper.dagster_to_dbt_selection) to track invocations.
+
+PJM's data access leaves much to be desired. They have robust trading-centric web apps--perhaps they have internal APIs that members can access?
+
+If I had to track power generation for PJM, I would try to unify ComEd SCADA output using a more industry-standard tool like Apache Airflow. Ironically, there would probably be some RAG in the pipeline. It will be interesting to se what reporting standards emerge with Illinois SB2181.
+
 ## Installation & Quickstart
 
 #### PREREQUISITES:
@@ -115,7 +125,26 @@ I'll leave this as an exercise for the reader. It is likely that some incompatib
 
 ## Architecture Diagram
 
-[_Insert workflow diagram here._]
+![Architecture Diagram](docs/architecture_diagram.png)
+
+- #### Data Sources
+
+  The pipeline integrates four distinct data sources - PUDL parquet files from S3 for historical power generation data, PJM Excel files for demand forecasts, web-scraped data center information from DATACENTERS.com, and geocoding services from Nominatim.
+
+- #### Processing & Orchestration
+
+  Prefect orchestrates the entire workflow, coordinating data collection, web scraping with Selenium, and Python processing scripts. This demonstrates modern data engineering practices with proper workflow management.
+
+- #### Storage Strategy
+
+  DuckDB serves as the central analytical database, chosen for its native parquet support and simplicity for analytical workloads. Raw data is staged in the data/ directory before processing.
+
+- #### Transformation Pipeline
+
+  The dbt transformation layer implements a clean staging-intermediate-marts architecture, handling the complex task of merging nuclear generation data (reported separately by EIA) with other fuel sources, then creating dimensional models for analysis.
+
+- #### API & Visualization
+  A Flask API provides six endpoints that serve JSON data to Grafana dashboards, enabling interactive visualization of power plant locations, generation trends, and forecast accuracy analysis.
 
 ## Workflow Steps
 
