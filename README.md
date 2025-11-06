@@ -310,7 +310,7 @@ MASE is scale-independent. Changes in magnitude, actuals, or variance affect bot
 > [!Caution]
 > For complete accuracy, this comparison would require plant-by-plant PUDL data mapped precisely to PJM’s forecast input list for the ComEd zone. That data is not publicly available. Attempts to fuzzy-match plant names across PJM and PUDL were inconsistent. Other complicating factors include interconnections, occasional non-PJM supply at times of peak demand, new generator additions/retirements, and scheduled outages. The chosen method uses all Northern Illinois counties assigned to ComEd as the “actual” filter, with PJM forecasts left unadjusted.
 
-## References, Endnots & Further Reading
+## References, Endnotes & Further Reading
 
 1. [Brighlio: Illinois Data Centers Offer High Security, Efficiency](https://brightlio.com/data-centers-in-illinois/)  
    Summary: Overview of major Chicago-area data centers, highlighting their sustainable design, high security, and industry certifications for reliable and efficient operations.
