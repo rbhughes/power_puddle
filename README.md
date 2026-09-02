@@ -1,5 +1,14 @@
 # Power Plants & Data Centers in Illinois
 
+> **Vol. 2 is live at [comed.purr.io](https://comed.purr.io)** — the
+> one-year-later grading of this analysis's September 2025 prediction
+> ("the flat prediction is probably wrong" — it was), with fresh PUDL
+> actuals through May 2026, PJM's 2024/2025/2026 forecast vintages,
+> and up-to-date citations. The refresh uses the same transforms as
+> the original (`src/scripts/build_site_data.py`); everything below
+> is Vol. 1, preserved. Bonus: the "corrupted" 2024 PJM file was
+> never corrupt — openpyxl just refuses its XML; calamine reads it.
+
 ## Executive Summary
 
 ### Is the Illinois power grid prepared for projected data center growth?

@@ -210,3 +210,7 @@ __marimo__/
 data/*
 .DS_Store
 scribble.txt
+# static site
+site/node_modules/
+site/dist/
+site/.astro/
