@@ -152,7 +152,10 @@ venv.bak/
 .ropeproject
 
 # mkdocs documentation
-/site
+site/node_modules/
+site/dist/
+site/.astro/
+site/.wrangler/
 
 # mypy
 .mypy_cache/
