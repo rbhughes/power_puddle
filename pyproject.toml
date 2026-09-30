@@ -1,7 +1,7 @@
 [project]
 name = "power-puddle"
 version = "0.1.0"
-description = "Add your description here"
+description = "A Prefect/dbt/DuckDB pipeline that puts PJM load forecasts next to PUDL actuals for the ComEd zone"
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
@@ -21,3 +21,17 @@ dependencies = [
     "selenium>=4.35.0",
     "xlrd>=2.0.2",
 ]
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+    # build_site_data imports it at module scope; the script itself is run
+    # standalone with `uv run --with requests`, so it is not a runtime dep
+    "requests>=2.32",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# neither directory is a package, so put both on the path rather than
+# restructuring a project that is finished
+pythonpath = ["src", "src/scripts"]

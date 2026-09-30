@@ -1,13 +1,43 @@
-# Power Plants & Data Centers in Illinois
+# Power Puddle
 
-> **Vol. 2 is live at [comed.purr.io](https://comed.purr.io)** — the
+**A batch pipeline that puts PJM's load forecasts next to what the ComEd zone
+actually generated, so the forecasts can be scored instead of believed.**
+
+Prefect orchestrates it, Selenium and `requests` collect it, DuckDB stores it,
+dbt models it staging &rarr; intermediate &rarr; marts, a Flask API serves nine
+JSON endpoints, and Grafana draws it. Four sources that do not agree on anything:
+PUDL parquet on S3, PJM load reports as Excel, a scraped data-center directory,
+and Nominatim for geocoding.
+
+![Architecture Diagram](docs/architecture_diagram.png)
+
+The awkward parts, which are the interesting ones:
+
+- **Nuclear is reported separately.** EIA splits nuclear generation out from
+  everything else, so the intermediate layer has to merge two differently
+  shaped feeds before any fuel mix means anything. Illinois is roughly half
+  nuclear, so getting this wrong gets everything wrong.
+- **PJM does not publish plant identity.** Their forecasts name zones, not
+  plants, and their resource-list names do not match PUDL's. Fuzzy matching
+  was bad enough to throw away, so the join is by county instead &mdash; an
+  approximation, stated as one.
+- **A file that was not corrupt.** PJM's 2024 load report is unreadable by
+  openpyxl, which is why it sat commented out as `# corrupt?` for a year. It
+  is fine. openpyxl refuses its XML; calamine reads it without complaint.
+- **Forecasts are scored, not shown.** Mean absolute scaled error against a
+  naive seasonality-1 baseline, so "the forecast is flat" becomes a number
+  that can be above or below 1 rather than an impression.
+
+Written up as an analysis below, because a pipeline nobody draws a conclusion
+from is just plumbing. The conclusion, a year later, held.
+
+> **Vol. 2 is live at [comed.purr.io](https://comed.purr.io)** &mdash; the
 > one-year-later grading of this analysis's September 2025 prediction
-> ("the flat prediction is probably wrong" — it was), with fresh PUDL
+> ("the flat prediction is probably wrong" &mdash; it was), with fresh PUDL
 > actuals through May 2026, PJM's 2024/2025/2026 forecast vintages,
 > and up-to-date citations. The refresh uses the same transforms as
 > the original (`src/scripts/build_site_data.py`); everything below
-> is Vol. 1, preserved. Bonus: the "corrupted" 2024 PJM file was
-> never corrupt — openpyxl just refuses its XML; calamine reads it.
+> is Vol. 1, preserved.
 
 ## Executive Summary
 
@@ -133,9 +163,9 @@ Test a route in your browser:
 
 I'll leave this as an exercise for the reader. It is likely that some incompatibility in the JSON formats will have crept in for open source Grafana, but exports of the visualizations and dashboards in this repo are in `grafana/dashboards`.
 
-## Architecture Diagram
+## Architecture, in detail
 
-![Architecture Diagram](docs/architecture_diagram.png)
+(Diagram is at the top of this README.)
 
 - #### Data Sources
 
@@ -154,7 +184,7 @@ I'll leave this as an exercise for the reader. It is likely that some incompatib
   The dbt transformation layer implements a clean staging-intermediate-marts architecture, handling the complex task of merging nuclear generation data (reported separately by EIA) with other fuel sources, then creating dimensional models for analysis.
 
 - #### API & Visualization
-  A Flask API provides six endpoints that serve JSON data to Grafana dashboards, enabling interactive visualization of power plant locations, generation trends, and forecast accuracy analysis.
+  A Flask API provides nine endpoints (plus a health check) that serve JSON data to Grafana dashboards, enabling interactive visualization of power plant locations, generation trends, and forecast accuracy analysis.
 
 ## Workflow Steps
 
