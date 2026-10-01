@@ -1,7 +1,7 @@
 ---
 // POWER PUDDLE Vol. 2 — the one-year-later grading of the September
-// 2025 analysis, published newsletter-style. Data artifacts are built
-// by src/scripts/build_site_data.py using the original transforms.
+// 2025 analysis. Data artifacts are built by
+// src/scripts/build_site_data.py using the original transforms.
 ---
 
 <!doctype html>
@@ -13,7 +13,7 @@
     <link rel="canonical" href="https://comed.purr.io/" />
     <meta
       name="description"
-      content="Power Puddle Vol. 2: grading a September 2025 prediction that PJM's flat ComEd load forecasts were wrong. They were. The AI bump is now in PJM's own numbers."
+      content="A Prefect/dbt/DuckDB pipeline grades its own September 2025 prediction that PJM's flat ComEd load forecasts were wrong. They were. The AI bump is now in PJM's own numbers."
     />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
@@ -25,18 +25,24 @@
       </a>
       <span class="brand">Power Puddle</span>
       <a href="https://github.com/rbhughes/power_puddle">GitHub</a>
-      <span class="vintage">Vol. 2 &middot; September 2026</span>
+      <span class="vintage">2026 refresh</span>
     </nav>
 
     <header class="masthead">
-      <p class="kicker">THE COMED LETTER &middot; ILLINOIS POWER &amp; DATA CENTERS</p>
+      <p class="kicker">ILLINOIS POWER &amp; DATA CENTERS &middot; A PREDICTION, GRADED</p>
       <h1>The forecast finally caught up</h1>
       <p class="standfirst">
-        A year ago this newsletter looked at PJM&rsquo;s load forecasts
+        A year ago this project looked at PJM&rsquo;s load forecasts
         for northern Illinois and concluded:
         <em>&ldquo;the flat prediction is probably wrong.&rdquo;</em>
         Twelve months of new data are in. The prediction was wrong
         &mdash; and PJM now agrees, loudly, in its own numbers.
+      </p>
+      <p class="builtby">
+        Rebuilt from source by the same pipeline as the original
+        &mdash; Prefect, dbt, DuckDB &mdash; against PUDL actuals
+        through May 2026 and eleven PJM forecast vintages.
+        <a href="https://github.com/rbhughes/power_puddle">How it works</a>
       </p>
     </header>
 
@@ -285,6 +291,14 @@
     max-width: 46rem;
   }
   .standfirst em { color: var(--brand); }
+  /* what produced the page, said once, up top rather than only in the
+     closing methods note */
+  .builtby {
+    max-width: 46rem;
+    margin: 0 auto 1.2rem;
+    font-size: 0.86rem;
+    color: var(--muted);
+  }
   .body { max-width: 62rem; margin: 0 auto; padding: 0.8rem 2.1rem; }
   .body h2 {
     font: 700 1.35rem/1.3 Georgia, serif;
